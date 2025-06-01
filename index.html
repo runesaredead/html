@@ -1,0 +1,455 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>FFS</title>
+    
+    <!-- Favicon and manifest for cross-platform support -->
+    <link rel="icon" type="image/x-icon" href="/favicon.ico">
+    <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32.png">
+    <link rel="icon" type="image/png" sizes="48x48" href="/favicon-48.png">
+    <link rel="icon" type="image/png" sizes="64x64" href="/favicon-64.png">
+    <link rel="icon" type="image/png" sizes="128x128" href="/favicon-128.png">
+    
+    <!-- Apple Touch Icons for iOS -->
+    <link rel="apple-touch-icon" sizes="180x180" href="/favicon-180.png">
+    
+    <!-- Android/Chrome -->
+    <link rel="icon" type="image/png" sizes="192x192" href="/favicon-192.png">
+    <link rel="icon" type="image/png" sizes="512x512" href="/favicon-512.png">
+    
+    <!-- Web App Manifest -->
+    <link rel="manifest" href="/manifest.json">
+    
+    <!-- Theme colors for mobile browsers -->
+    <meta name="theme-color" content="#ff4444">
+    <meta name="msapplication-TileColor" content="#ff4444">
+    <meta name="msapplication-TileImage" content="/favicon-192.png">
+    
+    <!-- Open Graph / Social Media Preview -->
+    <meta property="og:title" content="FFShairy ON-CHAIN TOOLSET">
+    <meta property="og:description" content="FFShairy On-Chain Toolset">
+    <meta property="og:image" content="/favicon-512.png">
+    <meta property="og:type" content="website">
+    
+    <!-- Twitter Card -->
+    <meta name="twitter:card" content="summary">
+    <meta name="twitter:title" content="FFShairy ON-CHAIN TOOLSET">
+    <meta name="twitter:description" content="FFShairy On-Chain Toolset">
+    <meta name="twitter:image" content="/favicon-512.png">
+
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&display=swap');
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            background: #0a0a0a;
+            font-family: 'Orbitron', monospace;
+            color: #ff4444;
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+        }
+
+        .toolbox-container {
+            width: 800px;
+            height: 900px;
+            position: relative;
+            background: linear-gradient(135deg, #2a1a1a 0%, #1a0f0f 100%);
+            border: 8px solid #aa3333;
+            border-radius: 15px;
+            box-shadow: 
+                0 0 30px #ff4444,
+                inset 0 0 30px rgba(170, 51, 51, 0.3);
+        }
+
+        /* Corner bolts */
+        .corner-bolt {
+            position: absolute;
+            width: 30px;
+            height: 30px;
+            background: radial-gradient(circle, #ff4444 30%, #aa2222 70%);
+            border-radius: 50%;
+            border: 3px solid #662222;
+            box-shadow: inset 0 0 10px #330000;
+        }
+
+        .corner-bolt::after {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 12px;
+            height: 12px;
+            background: #220000;
+            border-radius: 50%;
+        }
+
+        .corner-bolt.top-left { top: -15px; left: -15px; }
+        .corner-bolt.top-right { top: -15px; right: -15px; }
+        .corner-bolt.bottom-left { bottom: -15px; left: -15px; }
+        .corner-bolt.bottom-right { bottom: -15px; right: -15px; }
+
+        /* Side mechanical details */
+        .side-panel {
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+            width: 60px;
+            height: 200px;
+            background: linear-gradient(90deg, #333 0%, #222 50%, #333 100%);
+            border: 3px solid #aa3333;
+        }
+
+        .side-panel.left {
+            left: -70px;
+            border-right: none;
+            border-radius: 15px 0 0 15px;
+        }
+
+        .side-panel.right {
+            right: -70px;
+            border-left: none;
+            border-radius: 0 15px 15px 0;
+        }
+
+        .panel-detail {
+            width: 70%;
+            height: 4px;
+            background: #ff4444;
+            margin: 12px auto;
+            border-radius: 2px;
+        }
+
+        .panel-detail:nth-child(2n) {
+            background: #aa3333;
+            width: 40%;
+        }
+
+        /* Header section */
+        .header-section {
+            background: linear-gradient(90deg, #ff4444 0%, #cc3333 50%, #ff4444 100%);
+            margin: 15px;
+            border: 4px solid #aa2222;
+            border-radius: 10px;
+            padding: 15px;
+            text-align: center;
+            position: relative;
+            box-shadow: inset 0 0 20px rgba(0,0,0,0.5);
+        }
+
+        .header-section::before,
+        .header-section::after {
+            content: '';
+            position: absolute;
+            top: 50%;
+            width: 12px;
+            height: 40px;
+            background: #662222;
+            border: 2px solid #aa3333;
+            transform: translateY(-50%);
+        }
+
+        .header-section::before { left: -20px; }
+        .header-section::after { right: -20px; }
+
+        .header-section h1 {
+            font-size: 2.2rem;
+            font-weight: 900;
+            color: #000;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.8);
+            letter-spacing: 3px;
+        }
+
+        /* Main display area */
+        .main-display {
+            margin: 15px;
+            background: linear-gradient(135deg, #1a1a1a 0%, #0d0d0d 100%);
+            border: 6px solid #ff4444;
+            border-radius: 15px;
+            padding: 25px;
+            text-align: center;
+            position: relative;
+            height: 280px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            box-shadow: inset 0 0 30px rgba(255, 68, 68, 0.2);
+        }
+
+        .main-display::before,
+        .main-display::after {
+            content: '';
+            position: absolute;
+            top: 50%;
+            width: 10px;
+            height: 60px;
+            background: #ff4444;
+            border-radius: 5px;
+            transform: translateY(-50%);
+        }
+
+        .main-display::before { left: -18px; }
+        .main-display::after { right: -18px; }
+
+        .character-face {
+            width: 140px;
+            height: 140px;
+            margin: 0 auto 20px;
+            position: relative;
+            border: 4px solid #aa2222;
+            border-radius: 50%;
+            overflow: hidden;
+            box-shadow: 0 0 20px rgba(255, 68, 68, 0.5);
+        }
+
+        .character-face img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            filter: sepia(100%) hue-rotate(0deg) saturate(200%) brightness(0.8) contrast(1.2);
+        }
+
+        .main-text {
+            font-size: 1.8rem;
+            font-weight: 900;
+            color: #ff4444;
+            text-shadow: 2px 2px 4px #000;
+            letter-spacing: 2px;
+        }
+
+        /* Control panel */
+        .control-panel {
+            margin: 20px;
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 20px;
+        }
+
+        .main-button {
+            grid-column: 1 / -1;
+        }
+
+        .control-button {
+            background: linear-gradient(135deg, #2a2a2a 0%, #1a1a1a 100%);
+            border: 4px solid #ff4444;
+            border-radius: 12px;
+            padding: 20px;
+            color: #ff4444;
+            font-family: 'Orbitron', monospace;
+            font-size: 1.4rem;
+            font-weight: 700;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-decoration: none;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 80px;
+            position: relative;
+            text-shadow: 2px 2px 4px #000;
+            box-shadow: inset 0 0 15px rgba(255, 68, 68, 0.1);
+        }
+
+        .control-button::before {
+            content: '';
+            position: absolute;
+            top: 8px;
+            left: 8px;
+            right: 8px;
+            bottom: 8px;
+            border: 1px solid #aa3333;
+            border-radius: 8px;
+            pointer-events: none;
+        }
+
+        .control-button:hover {
+            background: linear-gradient(135deg, #ff4444 0%, #cc3333 100%);
+            color: #000;
+            box-shadow: 
+                0 0 20px #ff4444,
+                inset 0 0 20px rgba(255, 68, 68, 0.3);
+            transform: translateY(-3px);
+        }
+
+        .control-button:active {
+            transform: translateY(0);
+        }
+
+        .loading-text {
+            animation: pulse 1.5s infinite;
+        }
+
+        @keyframes pulse {
+            0%, 100% { opacity: 0.6; }
+            50% { opacity: 1; }
+        }
+
+        /* Corner decorative elements */
+        .corner-decoration {
+            position: absolute;
+            width: 40px;
+            height: 40px;
+            border: 3px solid #aa3333;
+        }
+
+        .corner-decoration.top-left {
+            top: 15px;
+            left: 15px;
+            border-right: none;
+            border-bottom: none;
+            border-radius: 10px 0 0 0;
+        }
+
+        .corner-decoration.top-right {
+            top: 15px;
+            right: 15px;
+            border-left: none;
+            border-bottom: none;
+            border-radius: 0 10px 0 0;
+        }
+
+        .corner-decoration.bottom-left {
+            bottom: 15px;
+            left: 15px;
+            border-right: none;
+            border-top: none;
+            border-radius: 0 0 0 10px;
+        }
+
+        .corner-decoration.bottom-right {
+            bottom: 15px;
+            right: 15px;
+            border-left: none;
+            border-top: none;
+            border-radius: 0 0 10px 0;
+        }
+
+        /* Status message */
+        .status-message {
+            margin: 15px 20px 20px;
+            text-align: center;
+            color: #ff4444;
+            font-family: 'Orbitron', monospace;
+            font-size: 1.1rem;
+            font-weight: 400;
+            text-shadow: 1px 1px 2px #000;
+            opacity: 0.8;
+            font-style: italic;
+        }
+    </style>
+</head>
+<body>
+    <div class="toolbox-container">
+        <!-- Corner bolts -->
+        <div class="corner-bolt top-left"></div>
+        <div class="corner-bolt top-right"></div>
+        <div class="corner-bolt bottom-left"></div>
+        <div class="corner-bolt bottom-right"></div>
+        
+        <!-- Side panels -->
+        <div class="side-panel left">
+            <div class="panel-detail"></div>
+            <div class="panel-detail"></div>
+            <div class="panel-detail"></div>
+            <div class="panel-detail"></div>
+            <div class="panel-detail"></div>
+            <div class="panel-detail"></div>
+            <div class="panel-detail"></div>
+        </div>
+        
+        <div class="side-panel right">
+            <div class="panel-detail"></div>
+            <div class="panel-detail"></div>
+            <div class="panel-detail"></div>
+            <div class="panel-detail"></div>
+            <div class="panel-detail"></div>
+            <div class="panel-detail"></div>
+            <div class="panel-detail"></div>
+        </div>
+
+        <!-- Corner decorations -->
+        <div class="corner-decoration top-left"></div>
+        <div class="corner-decoration top-right"></div>
+        <div class="corner-decoration bottom-left"></div>
+        <div class="corner-decoration bottom-right"></div>
+
+        <!-- Header -->
+        <div class="header-section">
+            <h1>ON-CHAIN TOOLSET</h1>
+        </div>
+
+        <!-- Main display -->
+        <div class="main-display">
+            <div class="character-face">
+                <img src="ffshairy.png" alt="Character Face">
+            </div>
+            <div class="main-text">FOR FUCKS SAKE</div>
+        </div>
+
+        <!-- Control panel -->
+        <div class="control-panel">
+            <a href="#ffsender" class="control-button main-button">
+                FFSENDER
+            </a>
+            <a href="#trade" class="control-button">
+                TRADE
+            </a>
+            <a href="#social" class="control-button">
+                SOCIAL
+            </a>
+            <a href="#analytics" class="control-button">
+                <span class="loading-text">LOADING...</span>
+            </a>
+            <a href="#transactions" class="control-button">
+                <span class="loading-text">LOADING...</span>
+            </a>
+        </div>
+
+        <!-- Status message -->
+        <div class="status-message">
+            for fucks sake, more tools are on the way
+        </div>
+    </div>
+
+    <script>
+        // Add click handlers for the buttons
+        document.querySelectorAll('.control-button').forEach(button => {
+            button.addEventListener('click', function(e) {
+                e.preventDefault();
+                const href = this.getAttribute('href');
+                console.log(`Clicked: ${href}`);
+                
+                // Add visual feedback
+                this.style.transform = 'translateY(2px)';
+                setTimeout(() => {
+                    this.style.transform = this.matches(':hover') ? 'translateY(-3px)' : 'translateY(0)';
+                }, 150);
+                
+                // Placeholder functionality
+                alert(`Navigating to: ${href.substring(1).toUpperCase()}`);
+            });
+        });
+
+        // Add some ambient lighting effects
+        setInterval(() => {
+            const bolts = document.querySelectorAll('.corner-bolt');
+            bolts.forEach(bolt => {
+                const intensity = Math.random() * 10 + 5;
+                bolt.style.boxShadow = `inset 0 0 ${intensity}px #330000`;
+            });
+        }, 2000);
+    </script>
+</body>
+</html> 
