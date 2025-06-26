@@ -400,7 +400,7 @@
 
         <!-- Control panel -->
         <div class="control-panel">
-            <a href="#ffsender" class="control-button main-button">
+            <a href="https://untitled5-production-a0a9.up.railway.app/" class="control-button main-button" target="_blank" rel="noopener noreferrer">
                 FFSENDER
             </a>
             <a href="#trade" class="control-button">
@@ -427,18 +427,22 @@
         // Add click handlers for the buttons
         document.querySelectorAll('.control-button').forEach(button => {
             button.addEventListener('click', function(e) {
-                e.preventDefault();
                 const href = this.getAttribute('href');
-                console.log(`Clicked: ${href}`);
-                
-                // Add visual feedback
-                this.style.transform = 'translateY(2px)';
-                setTimeout(() => {
-                    this.style.transform = this.matches(':hover') ? 'translateY(-3px)' : 'translateY(0)';
-                }, 150);
-                
-                // Placeholder functionality
-                alert(`Navigating to: ${href.substring(1).toUpperCase()}`);
+
+                // If the link is an internal placeholder (starts with '#'), prevent default and show mock alert.
+                if (href && href.startsWith('#')) {
+                    e.preventDefault();
+                    console.log(`Clicked: ${href}`);
+
+                    // Add visual feedback
+                    this.style.transform = 'translateY(2px)';
+                    setTimeout(() => {
+                        this.style.transform = this.matches(':hover') ? 'translateY(-3px)' : 'translateY(0)';
+                    }, 150);
+
+                    // Placeholder functionality
+                    alert(`Navigating to: ${href.substring(1).toUpperCase()}`);
+                }
             });
         });
 
